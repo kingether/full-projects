@@ -1,0 +1,65 @@
+package com.example.controller;
+
+import java.math.BigDecimal;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.service.PaymentService;
+
+
+
+@Controller
+@RequestMapping("/cart")
+@SessionAttributes({ "cart", "userAddress" })
+public class CartController {
+
+	@Autowired
+	private PaymentService paymentService;
+	@Autowired
+
+
+	
+	
+	/* ******* Generate a BrainTreeGateway token for payment transaction ****** */
+	@RequestMapping(value = "/payment/token", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Map<String, String> getClientToken() {
+		return paymentService.getClientToken();
+	}
+
+	@PostMapping("/place-order")
+	public String placeOrder(@RequestParam("payment_method_nonce") String paymentMethodNonce, ModelMap modelMap,
+			HttpServletRequest request, RedirectAttributes redirectAttr) {
+		
+		
+		Boolean paymentSuccessful = paymentService.makePayment(new Long(121), new BigDecimal(12.0), paymentMethodNonce);
+		if (paymentSuccessful) {
+			String hash = orderService.getOrderHash(orderId);
+			// *****************************************
+			orderService.updatePayed(orderId);
+			orderedBookService.insert(cart, orderId);
+			shoppingCartService.clearUserCart(user.getId(), cart, request, modelMap);
+			bookService.updateBookStock(cart);
+			userService.sendOrderDetailsEmail(hash, user);
+			// *****************************************
+			redirectAttr.addFlashAttribute("orderId", orderId);
+			return "redirect:/account/order-details?orderID=" + hash;
+		} else {
+			redirectAttr.addFlashAttribute("PAYMENT_METHOD_ERROR_MESSAGE_1", "Error! Your paymethod was declined.");
+			redirectAttr.addFlashAttribute("PAYMENT_METHOD_ERROR_MESSAGE_2",
+					"Please try again or choose a different payment method.");
+			return "redirect:/cart/checkout";
+		}
+	}
+}

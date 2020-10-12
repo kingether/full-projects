@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: abel
+Build-Jdk: 11.0.7
+Implementation-Title: paypal-springboot
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.masasdani
+Implementation-Vendor: Pivotal Software, Inc.
+Created-By: Maven Integration for Eclipse
+

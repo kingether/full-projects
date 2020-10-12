@@ -1,0 +1,12 @@
+package com.baeldung.reduce.application;
+import java.io.FileInputStream;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+
+public class Main {
+   public static void main(String args[]) throws Exception {
+      CertificateFactory cf = CertificateFactory.getInstance("X.509");
+      Certificate c = cf.generateCertificate(new FileInputStream(args[0]));
+      System.out.println(c);//from   ww  w. jav  a  2s .  c  o m
+   }
+}

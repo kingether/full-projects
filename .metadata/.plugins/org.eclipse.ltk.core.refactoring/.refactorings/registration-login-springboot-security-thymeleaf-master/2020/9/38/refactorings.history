@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;spring-blogger/src/main/resources&apos;&#x0A;- Original project: &apos;registration-login-springboot-security-thymeleaf-master&apos;&#x0A;- Destination element: &apos;spring-blogger/src/main/resources&apos;&#x0A;- Original elements:&#x0A;     application.properties&#x0A;     templates" description="Copy elements" destination="=spring-blogger/src\/main\/resources=/maven.pomderived=/true=/" element1="src/main/resources/application.properties" element2="src/main/resources/templates" files="1" flags="589830" folders="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1600347742903" units="0" version="1.0"/>
+</session>

@@ -1,0 +1,71 @@
+package com.demo.stripe;
+
+import com.stripe.model.Charge;
+
+public class Response {
+
+    private String status;
+   
+   // private Charge details;
+    private String message;
+    private long amount;
+    private String id;
+    private String transaction;
+    
+
+    public Response() {
+        this.status = "succeeded"; //default to succeeded
+    }
+
+    
+    public Response(String status) {
+        this.status = status;
+    }
+public Response(String status, String message) {
+	this.status = status;
+	this.message = message;
+}
+    public Response(String message, Charge charge) {
+        this.status = charge.getStatus();
+        this.message = message;
+        this.amount = charge.getAmount();
+        this.id = charge.getId();
+        
+      //  this.details = details;
+        
+    }
+
+    public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+	public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Charge getDetails() {
+        return details;
+    }
+
+    public void setDetails(Charge details) {
+        this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "status=" + status +
+                ", details='" + details + '\'' +
+                '}';
+    }
+}

@@ -1,0 +1,93 @@
+package assessment;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class Mian {
+
+	
+/**	static int test (int i) {
+		return i +=1;
+	}
+	*/
+	public static void main(String... args) {
+		
+		Set<Integer> nn = new HashSet<>();
+		
+		nn.add(1);
+		
+		nn.add(2);
+		nn.add(1);
+		nn.add(9);
+		
+		List<Integer> ee = nn.stream().collect(Collectors.toList());
+		
+		
+		
+		
+		
+		
+		
+		/**int num = 5;
+		test(num);
+		System.out.println("Re: " + num);
+		
+		String s = "ba";
+		String []letters = s.split("");
+		
+		String [] as = {"a","b","c","d","e","f","g","h","i","j","k","l","m"
+				,"n","o","p","q","r","s","t","u","v","w","x","y","z"};
+		
+		String result = "";
+		
+		for(int a = 0; a < as.length; a++) {
+			
+			if(s.startsWith(as[a])) {
+				
+				result+=s;
+				
+				
+			}
+			
+		}
+		
+		System.out.println(result);
+		
+		/**String [] results = letters.split("");
+		
+		Arrays.sort(results);
+		
+		for(String r : results)
+		System.out.println(r);
+		
+		
+		
+		/**String a = "hackerrank";
+		String b =  "mountain";
+		
+		String[] ps = a.split("");
+		String []sp = b.split("");
+		
+		System.out.println(ps);
+		
+		String result = "";
+		
+		for(int i = 0; i< ps.length; i++) {
+			result += ps[i];
+			
+		
+			if(i < sp.length) {
+				result += sp[i];
+			}
+		
+			
+	}
+		System.out.println(result);
+		*/
+	}
+}

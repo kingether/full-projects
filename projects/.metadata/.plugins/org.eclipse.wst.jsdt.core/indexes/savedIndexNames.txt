@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+/home/abel/Desktop/practice/projects/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1669026871.index
+2105519588.index
+2287209484.index
+3854892907.index
+742196271.index

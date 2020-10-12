@@ -1,0 +1,48 @@
+package assessment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class GrandMaster {
+	
+	public static void main(String[] args) {
+		
+		Date date = new Date();
+		
+		//System.out.println(date);
+		
+		int num = 12345;
+		 String []  chars = String.valueOf(num).split("");
+		 String result = "";
+		 
+		for(int a = 0; a < chars.length; a++ )
+			result = chars[a].concat(String.valueOf(0));
+			
+		
+		System.out.println("Result: " + result);
+		System.out.println(Result.formatAsCustomString(date, 12345));
+		
+		
+	}
+
+}
+class Result {
+    public static String formatAsCustomString(Date date, int number) {
+        
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String dt = simpleDateFormat.format(date);
+      
+        String num = String.valueOf(number);
+        return leftPad(num, 5,'0') + "-" + dt;
+    }
+
+public static String leftPad(String originalString, int length,char padCharacter) {
+    StringBuilder sb = new StringBuilder();
+    while (sb.length() + originalString.length() < originalString.length()) {
+        sb.append(padCharacter);
+    }
+    sb.append(originalString);
+    String paddedString = sb.toString();
+    return paddedString;
+   }
+}

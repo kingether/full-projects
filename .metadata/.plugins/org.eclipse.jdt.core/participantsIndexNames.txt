@@ -1,0 +1,27 @@
+INDEX VERSION 1.131
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2181410290.index
+/online-chat-2/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/4127620436.index
+/todo-management-spring-boot-master/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3788982937.index
+/todolist-web-struts/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3534914801.index
+/online-chat-2/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/1887074821.index
+/online-chat/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2972287404.index
+/online-chat/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3389213350.index
+/todolist-web-springmvc/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3426809279.index
+/todolist-web-springmvc/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/41079406.index
+/online-chat-2/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/496904783.index
+/todolist-web-springmvc/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/910830192.index
+/todolist-web-struts/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/264046008.index
+/online-chat/src/main/java
+/home/abel/Desktop/practice/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/687060977.index
+/todolist-web-struts/src/main/java

@@ -1,0 +1,25 @@
+package assessment;
+
+public class Mian {
+
+	public static void main(String... args) {
+		
+		int[] arr = {1,2,3,4,5};
+		
+		int k = 1;
+		for(int i = 0; i < arr.length; i++) {
+			
+			if(arr[i] == k) {
+				System.out.println(arr[arr.length -1]);
+			}else {
+				
+				if(i == 4) {
+					System.out.println(arr[arr.length -1]);
+					continue;
+				}
+				System.out.println(arr[i-1]);
+				//i++;
+			}
+		}
+	}
+}

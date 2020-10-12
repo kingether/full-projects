@@ -1,0 +1,222 @@
+package com.demo;
+
+import com.demo.domain.Extra;
+import com.demo.domain.Hotel;
+import com.demo.domain.Room;
+import com.demo.domain.RoomType;
+import com.demo.domain.location.Address;
+import com.demo.domain.location.Postcode;
+import com.demo.domain.location.State;
+import com.demo.persistance.HotelRepository;
+import com.demo.reservation.ExtraRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.time.LocalTime;
+
+@Component
+@Profile({ "!test", "!integration" })
+public class DataImporter {
+	private HotelRepository hotelRepository;
+	private ExtraRepository extraRepository;
+
+	public DataImporter(HotelRepository hotelRepository, ExtraRepository extraRepository) {
+		this.hotelRepository = hotelRepository;
+		this.extraRepository = extraRepository;
+	}
+
+	@Bean
+	public CommandLineRunner insertTestData() {
+		return args -> {
+			// For simplicity every hotel will have the same extras.
+			System.out.println("-------------------CommandLineRunner, insserting sample data");
+			// basic
+			extraRepository.save(new Extra("Foxtel", Integer.parseInt("2"), Extra.Type.Basic, Extra.Category.General));
+			extraRepository.save(
+					new Extra("Unlimited Internet", Integer.parseInt("3"), Extra.Type.Basic, Extra.Category.General));
+			extraRepository.save(new Extra("Laundry", Integer.parseInt("5"), Extra.Type.Basic, Extra.Category.General));
+			extraRepository.save(
+					new Extra("Upgraded mini bar", Integer.parseInt("12"), Extra.Type.Basic, Extra.Category.General));
+
+			extraRepository.save(new Extra("Breakfast", Integer.parseInt("2"), Extra.Type.Basic, Extra.Category.Food));
+			extraRepository.save(new Extra("Lunch", Integer.parseInt("4"), Extra.Type.Basic, Extra.Category.Food));
+			extraRepository.save(new Extra("Dinner", Integer.parseInt("6"), Extra.Type.Basic, Extra.Category.Food));
+
+			// premium
+			extraRepository
+					.save(new Extra("Foxtel", Integer.parseInt("1"), Extra.Type.Premium, Extra.Category.General));
+			extraRepository.save(
+					new Extra("Upgraded mini bar", Integer.parseInt("2"), Extra.Type.Premium, Extra.Category.General));
+			extraRepository
+					.save(new Extra("Massage", Integer.parseInt("6"), Extra.Type.Premium, Extra.Category.General));
+
+			extraRepository
+					.save(new Extra("Breakfast", Integer.parseInt("1"), Extra.Type.Premium, Extra.Category.Food));
+			extraRepository.save(new Extra("Lunch", Integer.parseInt("3"), Extra.Type.Premium, Extra.Category.Food));
+			extraRepository.save(new Extra("Dinner", Integer.parseInt("5"), Extra.Type.Premium, Extra.Category.Food));
+
+			createHotel1();
+			createHotel2();
+			createHotel3();
+			createHotel4();
+			createHotel5();
+			createHotel6();
+		};
+	}
+
+	private void createHotel1() {
+		LocalTime earliestCheckInTime = LocalTime.of(9, 0);
+		LocalTime latestCheckInTime = LocalTime.of(20, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(12, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(14, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(46).intValue();
+
+		Address address = new Address("The Grand Hotel", "Sinkor 13th Street", null, State.VIC, "Liberia",
+				new Postcode("3000"));
+
+		Hotel grandHotel = new Hotel("The Grand Hotel", address, 4, "grandhotel.com", earliestCheckInTime,
+				latestCheckInTime, earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("G1", RoomType.Economy, 1, Integer.parseInt("65"));
+		Room room2 = new Room("G2", RoomType.Business, 2, Integer.parseInt("106"));
+		Room room3 = new Room("G3", RoomType.Luxury, 4, Integer.parseInt("206"));
+		Room room4 = new Room("G4", RoomType.Economy, 2, Integer.parseInt("63"));
+
+		grandHotel.addRoom(room1);
+		grandHotel.addRoom(room2);
+		grandHotel.addRoom(room3);
+		grandHotel.addRoom(room4);
+
+		hotelRepository.save(grandHotel);
+	}
+
+	private void createHotel2() {
+		LocalTime earliestCheckInTime = LocalTime.of(8, 0);
+		LocalTime latestCheckInTime = LocalTime.of(19, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(13, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(15, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(30).intValue();
+
+		Address address2 = new Address("Glen Iris", "99A Glen Road", null, State.VIC, "Pretoria", new Postcode("3150"));
+
+		Hotel hotel = new Hotel("Glen Iris", address2, 3, "glenhotel.co.za", earliestCheckInTime, latestCheckInTime,
+				earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("H1", RoomType.Economy, 5, Integer.parseInt("86"));
+		Room room2 = new Room("H2", RoomType.Business, 2, Integer.parseInt("106"));
+		Room room3 = new Room("H3", RoomType.Luxury, 4, Integer.parseInt("206"));
+		Room room4 = new Room("H4", RoomType.Economy, 2, Integer.parseInt("36"));
+
+		hotel.addRoom(room1);
+		hotel.addRoom(room2);
+		hotel.addRoom(room3);
+		hotel.addRoom(room4);
+
+		hotelRepository.save(hotel);
+	}
+
+	private void createHotel3() {
+		LocalTime earliestCheckInTime = LocalTime.of(9, 0);
+		LocalTime latestCheckInTime = LocalTime.of(20, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(12, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(14, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(46).intValue();
+
+		Address address = new Address("Cevello Blanca", "2 smith street", null, State.VIC, "Melbourne",
+				new Postcode("3053"));
+
+		Hotel hotel = new Hotel("Cevello Blanca", address, 5, "cevellohotel.com.au", earliestCheckInTime,
+				latestCheckInTime, earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("C1", RoomType.Economy, 4, Integer.parseInt("66"));
+		Room room2 = new Room("C2", RoomType.Business, 4, Integer.parseInt("106"));
+		Room room3 = new Room("C3", RoomType.Luxury, 4, Integer.parseInt("206"));
+		Room room4 = new Room("C4", RoomType.Economy, 1, Integer.parseInt("36"));
+
+		hotel.addRoom(room1);
+		hotel.addRoom(room2);
+		hotel.addRoom(room3);
+		hotel.addRoom(room4);
+
+		hotelRepository.save(hotel);
+	}
+
+	private void createHotel4() {
+		LocalTime earliestCheckInTime = LocalTime.of(9, 0);
+		LocalTime latestCheckInTime = LocalTime.of(20, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(12, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(14, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(46).intValue();
+
+		Address address = new Address("Bravo", "7 apple avenue", null, State.VIC, "Docklands", new Postcode("3008"));
+
+		Hotel hotel = new Hotel("Bravo", address, 2, "bravoohotel.com.au", earliestCheckInTime, latestCheckInTime,
+				earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("B1", RoomType.Economy, 4, Integer.parseInt("36"));
+		Room room2 = new Room("B2", RoomType.Business, 5, Integer.parseInt("116"));
+		Room room3 = new Room("B3", RoomType.Luxury, 4, Integer.parseInt("2116"));
+		Room room4 = new Room("B4", RoomType.Economy, 2, Integer.parseInt("136"));
+
+		hotel.addRoom(room1);
+		hotel.addRoom(room2);
+		hotel.addRoom(room3);
+		hotel.addRoom(room4);
+
+		hotelRepository.save(hotel);
+	}
+
+	private void createHotel5() {
+		LocalTime earliestCheckInTime = LocalTime.of(9, 0);
+		LocalTime latestCheckInTime = LocalTime.of(20, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(12, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(14, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(46).intValue();
+
+		Address address = new Address("Zamza", "7 zamza avenue", null, State.VIC, "Paris", new Postcode("3000"));
+
+		Hotel hotel = new Hotel("Zamza", address, 4, "zamzaohotel.com.au", earliestCheckInTime, latestCheckInTime,
+				earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("Z1", RoomType.Economy, 4, Integer.parseInt("36"));
+		Room room2 = new Room("Z2", RoomType.Economy, 5, Integer.parseInt("116"));
+		Room room3 = new Room("Z3", RoomType.Luxury, 4, Integer.parseInt("216"));
+		Room room4 = new Room("Z4", RoomType.Economy, 2, Integer.parseInt("136"));
+
+		hotel.addRoom(room1);
+		hotel.addRoom(room2);
+		hotel.addRoom(room3);
+		hotel.addRoom(room4);
+
+		hotelRepository.save(hotel);
+	}
+
+	private void createHotel6() {
+		LocalTime earliestCheckInTime = LocalTime.of(9, 0);
+		LocalTime latestCheckInTime = LocalTime.of(20, 0);
+		LocalTime earliestCheckOutTime = LocalTime.of(12, 0);
+		LocalTime latestCheckOutTime = LocalTime.of(14, 0);
+		Integer lateCheckoutFee = BigDecimal.valueOf(45.60).intValue();
+
+		Address address = new Address("Xavier Hotel", "7 xavier road", null, State.VIC, "Johannesburg",
+				new Postcode("3000"));
+
+		Hotel hotel = new Hotel("Xavier Hotel", address, 4, "xavierhotel.co.za", earliestCheckInTime, latestCheckInTime,
+				earliestCheckOutTime, latestCheckOutTime, lateCheckoutFee);
+
+		Room room1 = new Room("X1", RoomType.Economy, 4, Integer.parseInt("114"));
+		Room room2 = new Room("X2", RoomType.Economy, 5, Integer.parseInt("95"));
+		Room room3 = new Room("X3", RoomType.Luxury, 4, Integer.parseInt("194"));
+		Room room4 = new Room("X4", RoomType.Economy, 2, Integer.parseInt("20"));
+
+		hotel.addRoom(room1);
+		hotel.addRoom(room2);
+		hotel.addRoom(room3);
+		hotel.addRoom(room4);
+
+		hotelRepository.save(hotel);
+	}
+}

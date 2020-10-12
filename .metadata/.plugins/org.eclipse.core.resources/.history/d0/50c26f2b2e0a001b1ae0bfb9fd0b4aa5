@@ -1,0 +1,54 @@
+package assessment;
+
+public class Solution {
+    
+    static List<Vehicle> VehicleCollection;
+    public enum Range { High, Medium, Low };
+    public enum Color { Red, Blue, White };    
+    
+    private final static Scanner scanner = new Scanner(System.in);
+    
+    public static void main(String[] args) throws Exception {
+        int numberOfLines;
+        String requirement;
+        
+        numberOfLines = Integer.parseInt(scanner.nextLine());
+        String request = scanner.nextLine();
+        numberOfLines = numberOfLines - 1;
+        
+        VehicleCollection = new ArrayList<Vehicle>();
+        
+        while (numberOfLines > 0) {
+            String inputLine = scanner.nextLine();
+            String[] parts = inputLine.split(",");
+            Vehicle veh = new Vehicle();
+            veh.Color = parts[0];
+            veh.Price = Double.parseDouble(parts[1]);
+            veh.Mileage = Integer.parseInt(parts[2]);
+            VehicleCollection.add(veh);
+            
+            numberOfLines = numberOfLines - 1;
+        }
+        
+        String[] parts = request.split(",");
+        
+        List<Vehicle> result = vehicleSearch(
+            parts[0].equals("Red")?Color.Red:parts[0].equals("Blue")?Color.Blue:Color.White,
+            parts[1].equals("High")?Range.High:parts[1].equals("Medium")?Range.Medium:Range.Low,
+            parts[2].equals("High")?Range.High:parts[2].equals("Medium")?Range.Medium:Range.Low);
+
+
+        for(Vehicle vehicle : result)
+        {
+            System.out.println("Color:" + vehicle.Color + " - Price:" + vehicle.Price.intValue() + " - Mileage:" + vehicle.Mileage + "");
+        }
+    }
+
+    public static List<Vehicle> vehicleSearch(Color color, Range price, Range mileage)
+    {
+        List<Vehicle> ret = new ArrayList<Vehicle>();        
+        //Write your code here
+        //Hint: You may want to use the factories above to create your instances
+       
+        return ret;
+    }

@@ -1,0 +1,299 @@
+package assessment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Solution {
+    
+    static List<Vehicle> VehicleCollection;
+    public enum Range { High, Medium, Low };
+    public enum Color { Red, Blue, White };    
+    
+    private final static Scanner scanner = new Scanner(System.in);
+    
+    public static void main(String[] args) throws Exception {
+        int numberOfLines;
+        String requirement;
+        
+        numberOfLines = Integer.parseInt(scanner.nextLine().trim());
+        String request = scanner.nextLine();
+        numberOfLines = numberOfLines - 1;
+        
+        VehicleCollection = new ArrayList<Vehicle>();
+        
+        while (numberOfLines > 0) {
+            String inputLine = scanner.nextLine();
+            String[] parts = inputLine.split(",");
+            Vehicle veh = new Vehicle();
+            veh.Color = parts[0];
+            veh.Price = Double.parseDouble(parts[1]);
+            veh.Mileage = Integer.parseInt(parts[2]);
+            VehicleCollection.add(veh);
+            
+            numberOfLines = numberOfLines - 1;
+        }
+        
+        String[] parts = request.split(",");
+        
+        List<Vehicle> result = vehicleSearch(
+            parts[0].equals("Red")?Color.Red:parts[0].equals("Blue")?Color.Blue:Color.White,
+            parts[1].equals("High")?Range.High:parts[1].equals("Medium")?Range.Medium:Range.Low,
+            parts[2].equals("High")?Range.High:parts[2].equals("Medium")?Range.Medium:Range.Low);
+
+
+        for(Vehicle vehicle : result)
+        {
+            System.out.println("Color:" + vehicle.Color + " - Price:" + vehicle.Price.intValue() + " - Mileage:" + vehicle.Mileage + "");
+        }
+    }
+
+    public static List<Vehicle> vehicleSearch(Color color, Range price, Range mileage)
+    {
+        List<Vehicle> ret = new ArrayList<Vehicle>();        
+        //Write your code here
+        //Hint: You may want to use the factories above to create your instances
+       
+        return ret;
+    }
+    static class mileageFactory
+    {
+        public static CompositeSpecification<Vehicle> MakeInstance(Range mileage)
+        {
+            CompositeSpecification<Vehicle> ret = null;
+            switch (mileage)
+            {
+                case Low:
+                    ret = new LowMileageSpecification();
+                break;
+                case Medium:
+                    ret =  new MediumMileageSpecification();
+                break;
+                case High:
+                    ret =  new HighMileageSpecification();
+                break;
+            }
+            return ret;
+        }
+    }
+    static class priceFactory
+    {
+        public static CompositeSpecification<Vehicle> MakeInstance(Range price)
+        {
+            CompositeSpecification<Vehicle> ret = null;
+            switch (price)
+            {
+                case Low:
+                    ret = new LowPriceSpecification();
+                break;
+                case Medium:
+                    ret = new MediumPriceSpecification();
+                break;
+                case High:
+                    ret = new HighPriceSpecification();
+                break;
+            }
+            return ret;
+        }
+    }
+    static class colorFactory
+    {
+        public static CompositeSpecification<Vehicle> MakeInstance(Color color)
+        {
+            CompositeSpecification<Vehicle> ret = null;
+            switch (color)
+            {
+                case Red:
+                    ret = new RedSpecification();
+                break;
+                case Blue:
+                    ret = new BlueSpecification();
+                break;
+                case White:
+                    ret = new WhiteSpecification();
+                break;
+            }
+            return ret;
+        }
+    }
+}
+
+class Vehicle
+{
+    public String RegistrationNumber;
+    public String Make;
+    public String Model;
+    public String YearOfManufacture;
+    public String Color;
+    public Double Price;
+    public int Mileage;
+}
+interface ISpecification<T>
+{
+    Boolean IsSatisfiedBy(T entity);
+    ISpecification<T> And(ISpecification<T> other);
+    ISpecification<T> AndNot(ISpecification<T> other);
+    ISpecification<T> Or(ISpecification<T> other);
+    ISpecification<T> Not();
+}
+abstract class CompositeSpecification<T> implements ISpecification<T>
+{
+    public abstract Boolean IsSatisfiedBy (T entity);
+
+    public ISpecification<T> And(ISpecification<T> other)
+    {
+        return new AndSpecification<T>(this, other);
+    }
+
+    public ISpecification<T> AndNot(ISpecification<T> other)
+    {
+        return new AndSpecification<T>(this, other);
+    }
+
+    public ISpecification<T> Or(ISpecification<T> other)
+    {
+        return new OrSpecification<T>(this, other);
+    }
+
+    public ISpecification<T> Not()
+    {
+        return new NotSpecification<T>(this);
+    }
+}
+class AndNotSpecification<T> extends CompositeSpecification<T>
+{
+    private ISpecification<T> left;
+    private ISpecification<T> right;
+
+    public AndNotSpecification(ISpecification<T> left, ISpecification<T> right)
+    {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public Boolean IsSatisfiedBy(T entity) {
+        return left.IsSatisfiedBy(entity) && right.IsSatisfiedBy(entity) != true;
+    }
+}
+class AndSpecification<T> extends CompositeSpecification<T>
+{
+    private ISpecification<T> left;
+    private ISpecification<T> right;
+
+    public AndSpecification(ISpecification<T> left, ISpecification<T> right)
+    {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public Boolean IsSatisfiedBy(T candidate)
+    {
+        return left.IsSatisfiedBy(candidate) && right.IsSatisfiedBy(candidate);
+    }
+}
+class NotSpecification<T> extends CompositeSpecification<T>
+{
+    private ISpecification<T> other;
+
+    public NotSpecification(ISpecification<T> other)
+    {
+        this.other = other;
+    }
+
+    @Override
+    public Boolean IsSatisfiedBy(T candidate)
+    {
+        return !other.IsSatisfiedBy(candidate);
+    }
+}
+class OrSpecification<T> extends CompositeSpecification<T>
+{
+    private ISpecification<T> left;
+    private ISpecification<T> right;
+
+    public OrSpecification(ISpecification<T> left, ISpecification<T> right)
+    {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public Boolean IsSatisfiedBy(T candidate)
+    {
+        return left.IsSatisfiedBy(candidate) || right.IsSatisfiedBy(candidate);
+    }
+}
+class BlueSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Color.equals("Blue");
+    }
+}
+class RedSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Color.equals("Red");
+    }
+}
+class WhiteSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Color.equals("White");
+    }
+}
+class HighMileageSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Mileage > 120000;
+    }
+}
+class MediumMileageSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Mileage > 40000 && ((Vehicle)entity).Mileage <= 120000;
+    }
+}
+class LowMileageSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Mileage <= 40000;
+    }
+}
+class HighPriceSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Price > 100000;
+    }
+}
+class MediumPriceSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Price > 50000 && ((Vehicle)entity).Price <= 100000;
+    }
+}
+class LowPriceSpecification<T> extends CompositeSpecification<T>
+{
+    @Override
+    public Boolean IsSatisfiedBy(T entity)
+    {
+        return ((Vehicle)entity).Price <= 50000;
+    }
+}

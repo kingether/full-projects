@@ -1,0 +1,12 @@
+package assessment;
+
+public class Mian {
+
+	public static void main(String... args) {
+		
+		String password = "hackerrank";
+		String passwrd =  "mountain";
+		
+		String[] ps = password.split("");
+	}
+}

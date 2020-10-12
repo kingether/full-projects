@@ -1,0 +1,31 @@
+package assessment;
+
+public class Mian {
+
+	public static void main(String... args) {
+		
+		String password = "hackerrank";
+		String passwrd =  "mountain";
+		
+		String[] ps = password.split("");
+		String []sp = passwrd.split("");
+		
+		System.out.println(ps);
+		
+		String result = "";
+		int i = 0;
+		
+		for(int a = 0; a< ps.length; a++) {
+			result += ps[a];
+			
+			for(; i < sp.length; i++) {
+				
+				result+= sp[i];
+				break;
+			}
+			
+		}
+		System.out.println(result);
+			
+	}
+}

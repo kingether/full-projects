@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;charge.html&apos; to &apos;reservation&apos;&#x0A;- Original project: &apos;stripe-payment&apos;&#x0A;- Destination element: &apos;reservation&apos;&#x0A;- Original element: &apos;charge.html&apos;" description="Copy file" element1="src/main/resources/templates/charge.html" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1601883095580" target="/hotel-liberia/src/main/resources/templates/reservation" units="0" version="1.0"/>
+</session>

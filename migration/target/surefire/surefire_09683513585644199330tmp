@@ -1,0 +1,6 @@
+#surefire_0
+#Fri Sep 18 09:32:18 SAST 2020
+style.color=always
+basedir=/home/abel/Desktop/practice/migration
+user.dir=/home/abel/Desktop/practice/migration
+localRepository=/home/abel/.m2/repository

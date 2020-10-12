@@ -1,0 +1,61 @@
+package assessment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+public class GrandMaster {
+	
+	public static void main(String[] args) {
+		
+	//	Date date = new Date();
+		
+		//System.out.println(date);
+		
+		/**int num = 12345;
+		 String []  chars = String.valueOf(num).split("");
+		 String result = "";
+		 
+		for(int a = 0; a < 5; a++ )
+			result+= 0  + chars[a];
+		
+			Date date1 = new Date();
+			
+			
+			String pattern = "yy MM dd";
+			SimpleDateFormat simpleDateFormat =
+			        new SimpleDateFormat(pattern, new Locale("Eng", "SA"));
+
+			String d = simpleDateFormat.format(new Date());
+			System.out.println("result: " + d);
+		//System.out.println("Result: " + result);
+System.out.println("Ass: " + Result.formatAsCustomString(date, Integer.parseInt(result)));
+		
+		*/
+	}
+
+}
+class Result {
+    public static String formatAsCustomString(Date date, int number) {
+        
+    	String pattern = "yy MM dd";
+    	SimpleDateFormat simpleDateFormat =
+		        new SimpleDateFormat(pattern, new Locale("Eng", "SA"));
+    	String d = simpleDateFormat.format(date);
+      
+    	
+     
+        String num = String.valueOf(number);
+        return leftPad(num, 5,'0') + "-" + d;
+    }
+
+public static String leftPad(String originalString, int length,char padCharacter) {
+    StringBuilder sb = new StringBuilder();
+    while (sb.length() + originalString.length() < originalString.length()) {
+        sb.append(padCharacter);
+    }
+    sb.append(originalString);
+    String paddedString = sb.toString();
+    return paddedString;
+   }
+}

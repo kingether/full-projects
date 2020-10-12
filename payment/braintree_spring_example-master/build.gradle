@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    archiveBaseName = 'bt-example'
+    archiveVersion =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.14
+targetCompatibility = 1.14
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:2.3.2.RELEASE")
+    implementation("com.braintreepayments.gateway:braintree-java:3.0.0")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.3.2.RELEASE")
+    testImplementation("junit:junit")
+    testImplementation("io.rest-assured:spring-mock-mvc:4.3.1")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.3.2.RELEASE")
+    testImplementation("com.braintreepayments.gateway:braintree-java:3.0.0")
+}
+
+wrapper {
+    gradleVersion = '6.5.1'
+}
+
+task stage (
+  dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble']
+)

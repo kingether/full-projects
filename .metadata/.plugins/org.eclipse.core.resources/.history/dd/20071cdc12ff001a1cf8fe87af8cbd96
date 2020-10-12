@@ -1,0 +1,30 @@
+package assessment;
+
+public class Mian {
+
+	public static void main(String... args) {
+		
+		/**String a = "hackerrank";
+		String b =  "mountain";
+		
+		String[] ps = a.split("");
+		String []sp = b.split("");
+		
+		System.out.println(ps);
+		
+		String result = "";
+		
+		for(int i = 0; i< ps.length; i++) {
+			result += ps[i];
+			
+		
+			if(i < sp.length) {
+				result += sp[i];
+			}
+		
+			
+	}
+		System.out.println(result);
+		*/
+	}
+}
