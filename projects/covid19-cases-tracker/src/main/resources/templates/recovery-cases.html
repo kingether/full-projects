@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Death cases</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" href="../static/css/site.css" th:href="@{/css/site.css}"/>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+<div class="jumbotron" align="center">
+<p class="lead">Recovered:</p>
+    <h1 class="display-4" th:text="${totalRecoveryCases}" style="color: green;"></h1>
+     <hr class="my-4">
+    <p>
+        <span>New cases reported since previous day:</span>
+        <span th:text="${totalNewRecoveryCases}" style="color: green;"></span>
+    </p>
+
+</div>
+
+    <table id="table" class="table table-striped table-sm">
+        <thead>
+            <th>State</th>
+            <th>Country</th>
+            <th>Total cases reported</th>
+            <th>Changes since last day</th>
+        </thead>
+        <tbody>
+        <tr th:each="RecoveryCaseStat : ${recoveryCasesStats}">
+            <td th:text="${RecoveryCaseStat.state}"></td>
+            <td th:text="${RecoveryCaseStat.country}"></td>
+            <td th:text="${RecoveryCaseStat.latestTotalCases}">0</td>
+            <td th:text="${RecoveryCaseStat.diffFromPrevDay}">0</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script th:src="@{/js/table.js}"></script>
+<footer>
+source
+<a href="https://github.com/CSSEGISandData">John Jopkins University</a>
+</footer>
+</body>
+
+</html>

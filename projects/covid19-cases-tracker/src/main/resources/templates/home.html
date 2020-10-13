@@ -16,27 +16,37 @@
 <div class="container">
 <div align="center">
 <h1>Coronavirus Tracker Application</h1>
-<p>This application lists the current number of cases reported across the globe</p>
+<p>This realtime application lists the current number of cases reported across the globe. 
+It updates regularly according to John Hopkins COVID19 Github repository.</p>
+source:<a href="https://github.com/CSSEGISandData">John Jopkins University Github </a>
+<br>
+Reference: <a href="https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6"> John Hopkin University COVID19 Dashboard</a>
 </div>
 <div class="jumbotron" align="center">
+
 <p class="lead">Coronavirus Cases:</p>
+
     <h1 class="display-4" th:text="${totalReportedCases}"></h1>
-    <a th:href="@{/confirmed-cases}" style="color: green;">view by country</a><br/>
-   
-    <p class="lead">Deaths:</p>
-    <h1 class="display-4" th:text="${totalReportedDeadCases}"></h1>
-   <a th:href="@{/confirmed-cases}"  style="color: green;">view by country</a><br/>
-    <hr class="my-4">
-    <p>
+     <p>
         <span>New confirmed cases reported since previous day:</span>
         <span th:text="${totalNewCases}"></span>
     </p>
-     <p>
+     <a th:href="@{/confirmed-cases}" style="color: green;"><u>view by country</u></a><br/>
+    <p class="lead">Deaths:</p>
+    <h1 class="display-4" th:text="${totalReportedDeadCases}"></h1>
+       <p>
         <span>New death cases reported since previous day:</span>
         <span th:text="${totalNewDeathCases}"></span>
     </p>
-    
-
+      <a th:href="@{/death-cases}"  style="color: green;"><u>view by country</u></a>
+    <p class="lead">Recovered:</p>
+    <h1 class="display-4" th:text="${totalRecoveryCases}" style="color: green;"></h1>
+     <p>
+        <span>New recovery cases reported since previous day:</span>
+        <span th:text="${totalNewRecoveryCases}" style="color: green;"></span>
+    </p>
+  
+ <a th:href="@{/recovery-cases}"  style="color: green;"><u>view by country</u></a>
 </div>
 
     
