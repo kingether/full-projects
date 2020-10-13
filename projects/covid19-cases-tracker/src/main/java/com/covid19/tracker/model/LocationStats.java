@@ -1,6 +1,6 @@
 package com.covid19.tracker.model;
 
-public class LocationStats {
+public abstract class LocationStats {
 
     private String state;
     private String country;

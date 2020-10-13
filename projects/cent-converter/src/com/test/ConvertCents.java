@@ -1,5 +1,6 @@
 package com.test;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class ConvertCents {
@@ -9,6 +10,16 @@ public class ConvertCents {
 	   final static int NICKELS = 5;               // number of cents in nickel
 
 	   public static void main (String[] args) {
+		   
+		   
+		   System.out.println("Number formater");
+		   
+		   NumberFormat nf = NumberFormat.getInstance();
+		   
+		   nf.setGroupingUsed(true);
+		   
+		   System.out.println(nf.format(37475325));
+		   System.out.println("Number formater");
 	      int dollar = 0;                               // total amount of cents
 	      int numDollars, numQuarters,             // number of dollars, quarters
 	          numDimes, numNickels;                // number of dimes, nickels

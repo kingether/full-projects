@@ -14,32 +14,33 @@
 
 <body>
 <div class="container">
-<div align="center">
-<h1>Coronavirus Tracker Application</h1>
-<p>This application lists the current number of cases reported across the globe</p>
-</div>
 <div class="jumbotron" align="center">
 <p class="lead">Coronavirus Cases:</p>
     <h1 class="display-4" th:text="${totalReportedCases}"></h1>
-    <a th:href="@{/confirmed-cases}" style="color: green;">view by country</a><br/>
-   
-    <p class="lead">Deaths:</p>
-    <h1 class="display-4" th:text="${totalReportedDeadCases}"></h1>
-   <a th:href="@{/confirmed-cases}"  style="color: green;">view by country</a><br/>
-    <hr class="my-4">
+     <hr class="my-4">
     <p>
-        <span>New confirmed cases reported since previous day:</span>
+        <span>New cases reported since previous day:</span>
         <span th:text="${totalNewCases}"></span>
     </p>
-     <p>
-        <span>New death cases reported since previous day:</span>
-        <span th:text="${totalNewDeathCases}"></span>
-    </p>
-    
 
 </div>
 
-    
+    <table id="table" class="table table-striped table-sm">
+        <thead>
+            <th>State</th>
+            <th>Country</th>
+            <th>Total cases reported</th>
+            <th>Changes since last day</th>
+        </thead>
+        <tbody>
+        <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.state}"></td>
+            <td th:text="${locationStat.country}"></td>
+            <td th:text="${locationStat.latestTotalCases}">0</td>
+            <td th:text="${locationStat.diffFromPrevDay}">0</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script th:src="@{/js/table.js}"></script>
