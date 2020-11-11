@@ -19,11 +19,9 @@
     
         <div class="ui top attached label" align="center">Payment method</div>
         <div align="center">
-             <h3 th:text="${#numbers.formatCurrency(reservationFlow.reservation.getTotalCostIncludingTax())}"></h3>
+        <h3 th:text="${#numbers.formatCurrency(reservationFlow.reservation.getTotalCostIncludingTax())}"></h3>
 
-    <form method="post" th:action="@{/pay}">
-	<button type="submit"> Process Payment </button>
-</form>
+    <a class="btn btn-primary" th:href="@{/checkouts}" role="button">Process to payment</a>
 </div>
       <!--  <form id="form" class="ui form" th:action="@{/reservation/payment}" method="post" th:object="${pendingPayment}">
 

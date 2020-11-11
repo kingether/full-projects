@@ -1,5 +1,7 @@
 package com.demo.reservation.flow;
 
+import com.braintreegateway.*;
+import com.demo.HotelApplication;
 import com.demo.TimeProvider;
 import com.demo.domain.*;
 import com.demo.exceptions.NotFoundException;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -29,10 +32,19 @@ import java.util.UUID;
 @SessionAttributes("reservationFlow")
 public class ReservationController {
 
+    private final BraintreeGateway gateway = HotelApplication.gateway;
     private RoomRepository roomRepository;
     private ExtraRepository extraRepository;
     private TimeProvider timeProvider;
-
+    private final Transaction.Status[] TRANSACTION_SUCCESS_STATUSES = new Transaction.Status[] {
+            Transaction.Status.AUTHORIZED,
+            Transaction.Status.AUTHORIZING,
+            Transaction.Status.SETTLED,
+            Transaction.Status.SETTLEMENT_CONFIRMED,
+            Transaction.Status.SETTLEMENT_PENDING,
+            Transaction.Status.SETTLING,
+            Transaction.Status.SUBMITTED_FOR_SETTLEMENT
+    };
     public ReservationController(RoomRepository roomRepository,
                                  ExtraRepository extraRepository,
                                  TimeProvider timeProvider) {
@@ -40,6 +52,7 @@ public class ReservationController {
         this.extraRepository = extraRepository;
         this.timeProvider = timeProvider;
     }
+
 
     /**
      * Since {@code reservationFlow} is used in the {@code SessionAttributes} on the controller level, it informs
@@ -427,5 +440,76 @@ public String charge(@ModelAttribute("reservationFlow") ReservationFlow reservat
         System.out.println("Person has been posted!");
         System.out.println(person);
         return "reservation/drinks";
+    }
+    ///////////////Braintree payment///////////////////////////////
+
+    @RequestMapping(value = "/checkouts", method = RequestMethod.GET)
+    public String checkout(@ModelAttribute("reservationFlow") ReservationFlow reservationFlow,
+                           Model model) {
+        reservationFlow.setActive(ReservationFlow.Step.Payment);
+        String clientToken = gateway.clientToken().generate();
+        model.addAttribute("clientToken", clientToken);
+
+        return "checkouts/new";
+    }
+
+    @RequestMapping(value = "/checkouts", method = RequestMethod.POST)
+    public String postForm(@RequestParam("amount") String amount,
+                           @RequestParam("payment_method_nonce") String nonce,
+                           Model model, final RedirectAttributes redirectAttributes) {
+        BigDecimal decimalAmount;
+        try {
+            decimalAmount = new BigDecimal(amount);
+        } catch (NumberFormatException e) {
+            redirectAttributes.addFlashAttribute("errorDetails", "Error: 81503: Amount is an invalid format.");
+            return "redirect:checkouts";
+        }
+
+        TransactionRequest request = new TransactionRequest()
+                .amount(decimalAmount)
+                .paymentMethodNonce(nonce)
+                .options()
+                .submitForSettlement(true)
+                .done();
+
+        Result<Transaction> result = gateway.transaction().sale(request);
+
+        if (result.isSuccess()) {
+            Transaction transaction = result.getTarget();
+            return "redirect:checkouts/" + transaction.getId();
+        } else if (result.getTransaction() != null) {
+            Transaction transaction = result.getTransaction();
+            return "redirect:checkouts/" + transaction.getId();
+        } else {
+            StringBuilder errorString = new StringBuilder();
+            for (ValidationError error : result.getErrors().getAllDeepValidationErrors()) {
+                errorString.append("Error: ").append(error.getCode()).append(": ").append(error.getMessage()).append("\n");
+            }
+            redirectAttributes.addFlashAttribute("errorDetails", errorString.toString());
+            return "redirect:checkouts";
+        }
+    }
+
+    @RequestMapping(value = "/checkouts/{transactionId}")
+    public String getTransaction(@PathVariable String transactionId, Model model) {
+        Transaction transaction;
+        CreditCard creditCard;
+        Customer customer;
+
+        try {
+            transaction = gateway.transaction().find(transactionId);
+            creditCard = transaction.getCreditCard();
+            customer = transaction.getCustomer();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+            return "redirect:/checkouts";
+        }
+
+        model.addAttribute("isSuccess", Arrays.asList(TRANSACTION_SUCCESS_STATUSES).contains(transaction.getStatus()));
+        model.addAttribute("transaction", transaction);
+        model.addAttribute("creditCard", creditCard);
+        model.addAttribute("customer", customer);
+
+        return "checkouts/show";
     }
 }

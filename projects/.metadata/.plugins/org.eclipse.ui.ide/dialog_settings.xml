@@ -49,6 +49,13 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/abel/Desktop/practice/projects/hotel-lib"/>
+			<item value="/home/abel/Desktop/practice/projects/hotel-liberia"/>
+			<item value="/home/abel/Desktop/practice/projects/hotel-reservation"/>
+			<item value="/home/abel/Desktop/practice/projects/spring-boot-hotel-reservation-master"/>
+			<item value="/home/abel/Desktop/covid-19-tracker"/>
+			<item value="/home/abel/Downloads/wind/coronavirus-tracker-master"/>
+			<item value="/home/abel/Downloads/wind/workout-tracker-master/workout-tracker-service"/>
 			<item value="/home/abel/Desktop/practice/payment/spring-boot-paypal-example-master"/>
 			<item value="/home/abel/Desktop/practice/payment/paypal-springboot-master"/>
 			<item value="/home/abel/Desktop/practice/projects/paypal"/>
@@ -73,5 +80,19 @@
 			<item value="/home/abel/Desktop/practice/projects/OnlineAirTicketBooking-master"/>
 			<item value="/home/abel/Desktop/practice/projects/Spring_MVC_Application-master"/>
 		</list>
+	</section>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item key="ShowStatusLine" value="true"/>
+		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode/&gt;&#x0A;&lt;/History&gt;"/>
+		<item key="ShowDerived" value="false"/>
+		<item key="FilterByLocation" value="false"/>
+		<item key="WorkingSet" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;"/>
+		<section name="DialogBoundsSettings">
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_WIDTH" value="600"/>
+			<item key="DIALOG_X_ORIGIN" value="386"/>
+			<item key="DIALOG_Y_ORIGIN" value="0"/>
+			<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+		</section>
 	</section>
 </section>
